@@ -5,17 +5,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+    $nomeCliente = filter_input(INPUT_GET,'nome-cliente');
+    $atendimentoCliente = filter_input(INPUT_GET, 'atendimento-cliente');
+    $convenioCliente = filter_input(INPUT_GET, 'convenio-cliente');
+   
+
 class cadastroCliente{
     
     public $nomeCliente;
     public $atendimentoCliente;
     public $convenioCliente;
-    public $query;
+ 
     
     
     public function conect_DB(){
         
- $servername = "localhost:8080";
+$servername = "localhost:8080";
 $username = "root";
 $password = "";
 
@@ -29,60 +35,88 @@ catch(PDOException $e){
   echo  "<script>alert(Falha ao tentar Conectar ao Data Base!);</script>" . $e->getMessage();
 }  
 }
-public function setCliente($nomeCliente, $atendimentoCiente, $convenioCliente){
-    
-    $this->nomeCliente = $nomeCliente;
-    $this->atendimentoCliente = $atendimentoCiente;
-    $this->convenicoCliente =$convenioCliente;
-    
-    $this->nomeCliente = filter_input(INPUT_GET,'nome-cliente');
-    $this->atendimentoCliente = filter_input(INPUT_GET, 'atendimento-cliente');
-    $this->convenioCliente = filter_input(INPUT_GET, 'convenio-cliente');
-    
-}
 
-public function insertDbCliente($quey){
+public function insertDbCliente(){
    
+    $stm = $conn->prepara("INSERT INTO clientes (nome, convenio, atendimento) 
+    VALUES ('nome-cliente', 'convenio-cliente', 'atendimento-cliente')");
     
-    $query = "INSERT INTO clientes(nome, convenio, atenfimento) VALUES ($nomeCliente, $convenioCliente, $atendimentoCliente)";
+     $stm->execute(array(
+    ':nome' => $nomeCliente, ':convenio' => $convenioCliente, ':atednimento' => $atendimentoCliente
+  ));
     
-    
+     if($stm->execute()){
+         
+          echo  "<script>alert(Cliente Inserido com sucesso!);</script>";
+         
+     }else{
+         
+          echo  "<script>alert(Falaha ao inserir Cliente!);</script>";
+         
+     }   
 }
 
 public function deleteDbCliente(){
     
-    $delete =$sql = "DELETE FROM clientes WHERE (nome, convenio, atendimento)";
+   $stm = $conn->prepara("DELETE FROM clientes WHERE (nome, convenio, atendimento)");
+    
+     $stm->execute(array(
+    ':nome' => $nomeCliente, ':convenio' => $convenioCliente, ':atednimento' => $atendimentoCliente
+  ));
+    
+     if($stm->execute()){
+         
+          echo  "<script>alert(Cliente Deletado com sucesso!);</script>";
+         
+     }else{
+         
+          echo  "<script>alert(Falaha ao deletar Cliente!);</script>";
+         
+     }
     
 }
 
 public function updateDbCliente(){
     
-    $update = "UPDATE clientes SET nome, convenio, atendimento";
+     $stm = $conn->prepara("UPDATE clientes WHERE (nome, convenio, atendimento)");
     
+     $stm->execute(array(
+    ':nome' => $nomeCliente, ':convenio' => $convenioCliente, ':atednimento' => $atendimentoCliente
+  ));
     
+     if($stm->execute()){
+         
+          echo  "<script>alert(Cliente atualizado com sucesso!);</script>";
+         
+     }else{
+         
+          echo  "<script>alert(Falaha ao atualizar Cliente!);</script>";
+         
+     }
 }
 
 public function selectCliente(){
     
-    $select = "SELECT id, nome, convenio, atendimento FROM xlientes";
+   $stm = $conn->prepara("SELECT clientes WHERE (nome, convenio, atendimento)");
     
+     $stm->execute(array(
+    ':nome' => $nomeCliente, ':convenio' => $convenioCliente, ':atednimento' => $atendimentoCliente
+  ));
+    
+     if($stm->execute()){
+         
+          echo  "<script>alert(Cliente atualizado com sucesso!);</script>";
+         
+     }else{
+         
+          echo  "<script>alert(Falaha ao atualizar Cliente!);</script>";
+         
+     }
+}
+ 
     
 }
-
-
-
-        
-        
-    
-    
-    
-    
-    
-    
-}
-
-
-  
+   
 
 
   

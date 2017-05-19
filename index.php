@@ -20,7 +20,7 @@
             <div class="container">
                 <div class="row">
                    <div class="col-xs-12">
-                       <form action="model/cadastroCliente.php" method="GET">
+                       <form action="controller/controllerCliente.php" method="GET">
                            
                        <div class="input-group">
                            <span class="input-group-addon">Em@il</span>
