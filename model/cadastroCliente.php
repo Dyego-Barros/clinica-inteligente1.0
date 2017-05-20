@@ -26,9 +26,9 @@ $username = "root";
 $password = "";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=clinica_m", $username, $password);
+    self::$conn = new PDO("mysql:host=$servername;dbname=clinica_m", $username, $password);
     // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);   
+    self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);   
      echo  "<script>alert(Conexão bem realizado com Data Base!);</script>"; 
     }
 catch(PDOException $e){
