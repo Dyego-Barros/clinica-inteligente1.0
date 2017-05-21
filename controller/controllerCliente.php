@@ -6,11 +6,13 @@
  * and open the template in the editor.
  */
 
+include '../connect_db/connect_db.php';
 include '../model/cadastroCliente.php';
 
-$newClient = new cadastroCliente();
+$conexao = new conexao();
+$conexao->connect_db();
 
-$newClient->conect_DB();
- 
- $newClient->insertDbCliente($nomeCliente,$atendimentoCliente, $convenioCliente);
+$novoCliente = new cadastroCliente();
+$novoCliente->insertDbCliente();
+
 
