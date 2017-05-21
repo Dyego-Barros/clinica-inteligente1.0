@@ -6,28 +6,29 @@
  * and open the template in the editor.
  */
 
-    $nomeCliente = filter_input(INPUT_GET,'nome-cliente');
-    $atendimentoCliente = filter_input(INPUT_GET, 'atendimento-cliente');
-    $convenioCliente = filter_input(INPUT_GET, 'convenio-cliente');
-   
+  
 
-class cadastroCliente{
-    
-    public $nomeCliente;
-    public $atendimentoCliente;
-    public $convenioCliente;
+
+class cadastroCliente{   
  
 
 public function insertDbCliente(){
-   
-    $stm = $conn->prepara("INSERT INTO clientes (nome, convenio, atendimento) 
-    VALUES ('nome-cliente', 'convenio-cliente', 'atendimento-cliente')");
     
-     $stm->execute(array(
-    ':nome' => $nomeCliente, ':convenio' => $convenioCliente, ':atednimento' => $atendimentoCliente
-  ));
+    include '../connect_db/connect_db.php';
+    $conn = new conexao_db();
+    $conn->connect_db();
     
-     if($stm->execute()){
+      $nomeCliente = filter_input(INPUT_GET,"nome-cliente");
+    $atendimentoCliente = filter_input(INPUT_GET, "atendimento-cliente");
+    $convenioCliente = filter_input(INPUT_GET, "convenio-cliente");   
+    
+        
+        $stm = ("INSERT INTO clientes (nome, convenio, atendimento) 
+    VALUES ($nomeCliente, $atendimentoCliente, $convenioCliente)");
+    
+    
+    
+     if($conn->execute($stm) === TRUE){
          
           echo  "<script>alert(Cliente Inserido com sucesso!);</script>";
          
@@ -35,69 +36,21 @@ public function insertDbCliente(){
          
           echo  "<script>alert(Falaha ao inserir Cliente!);</script>";
          
-     }   
+     }  
+     
+     $conn->close();
+        
+   
+   
+   
 }
 
-public function deleteDbCliente(){
-    
-   $stm = $conn->prepara("DELETE FROM clientes WHERE (nome, convenio, atendimento)");
-    
-     $stm->execute(array(
-    ':nome' => $nomeCliente, ':convenio' => $convenioCliente, ':atednimento' => $atendimentoCliente
-  ));
-    
-     if($stm->execute()){
-         
-          echo  "<script>alert(Cliente Deletado com sucesso!);</script>";
-         
-     }else{
-         
-          echo  "<script>alert(Falaha ao deletar Cliente!);</script>";
-         
-     }
-    
-}
 
-public function updateDbCliente(){
-    
-     $stm = $conn->prepara("UPDATE clientes WHERE (nome, convenio, atendimento)");
-    
-     $stm->execute(array(
-    ':nome' => $nomeCliente, ':convenio' => $convenioCliente, ':atednimento' => $atendimentoCliente
-  ));
-    
-     if($stm->execute()){
-         
-          echo  "<script>alert(Cliente atualizado com sucesso!);</script>";
-         
-     }else{
-         
-          echo  "<script>alert(Falaha ao atualizar Cliente!);</script>";
-         
-     }
-}
 
-public function selectCliente(){
-    
-   $stm = $conn->prepara("SELECT clientes WHERE (nome, convenio, atendimento)");
-    
-     $stm->execute(array(
-    ':nome' => $nomeCliente, ':convenio' => $convenioCliente, ':atednimento' => $atendimentoCliente
-  ));
-    
-     if($stm->execute()){
-         
-          echo  "<script>alert(Cliente atualizado com sucesso!);</script>";
-         
-     }else{
-         
-          echo  "<script>alert(Falaha ao atualizar Cliente!);</script>";
-         
-     }
 }
  
     
-}
+
    
 
 
